@@ -30,7 +30,7 @@ P.Vertices = rotX(da(1),P.Vertices,LocusUmbilic);
 
 %% Rotation X1
 
-da(2) = -0.7;
+da(2) = 1;
 a(2) = a(2)+da(2);
 
 P.Vertices = rotY(da(2),P.Vertices,LocusUmbilic);
