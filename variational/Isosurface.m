@@ -66,11 +66,11 @@ for j=1:4
 end
 
 csps = gobjects(1,2);
-load('./Data/CuspLine_Umbilics.mat','cuspsP')
-csps(1)=plot3(cuspsP(2:end,1),cuspsP(2:end,2),cuspsP(2:end,3));
-csps(1).LineWidth=5;
 load('./Data/CuspLine_Circle.mat','cuspsP')
-csps(2)=plot3(cuspsP(2:end,1),cuspsP(2:end,2),cuspsP(2:end,3));
+csps(1)=plot3(cuspsP(1:end,1),cuspsP(1:end,2),cuspsP(1:end,3));
+csps(1).LineWidth=5;
+load('./Data/CuspLine_Umbilics.mat','cuspsP')
+csps(2)=plot3(cuspsP(1:end,1),cuspsP(1:end,2),cuspsP(1:end,3));
 csps(2).LineWidth=5;
 
 
