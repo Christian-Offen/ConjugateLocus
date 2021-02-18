@@ -1,7 +1,7 @@
 # Endpoint map geodesic on (n-1)-dimensional ellipsoid in Rn
 # With Jacobian
 
-from jax import ops, lax, jacfwd, jit
+from jax import ops, lax, jacfwd, jit, jvp
 import jax.numpy as jnp
 from scipy import linalg, optimize
 from functools import partial
@@ -115,3 +115,53 @@ def ContFun(xoldold,xold,g,ds):
 	return optimize.fsolve(obj,xpred,xtol=1e-6)	
 
 
+@partial(jit, static_argnums=(0,))
+def cuspCond(f1,Xa,ds):
+    
+    # shorthands
+    x = Xa[:3]
+    a = Xa[3:]
+    
+    f2 = lambda x: jvp(f1,(x,),(a,))[1] # 1st derivative in direction a
+    c1 = f2(x)
+    c2 = (sum(a**2)-1)/ds
+    f3 = lambda x: jvp(f2,(x,),(a,))[1] # 2nd derivative in direction a
+    c3 = jnp.matmul(f3(x),a)
+    
+    return jnp.block([c1, c2, c3])
+
+@partial(jit, static_argnums=(0,))
+def SWCond(f1,Xa):
+    
+    # shorthands
+    x = Xa[:3]
+    a = Xa[3:]
+    
+    Jac = jacfwd(f1)(x)
+    
+    f2 = lambda x: jvp(f1,(x,),(a,))[1] # 1st derivative in direction a
+    f3 = lambda x: jvp(f2,(x,),(a,))[1] # 2nd derivative in direction a
+    f4 = lambda x: jvp(f3,(x,),(a,))[1] # 3rd derivative in direction a
+    
+    # consistent solution to v=jnp.linalg.solve(Jac,-f3(x))
+    b = -f3(x)
+    vbar = jnp.linalg.solve(jnp.matmul(Jac,jnp.transpose(Jac))+jnp.matmul(a,jnp.transpose(a)),b)
+    v = jnp.matmul(jnp.transpose(Jac),vbar)
+    
+    sw = jnp.matmul(f4(x),a) - 3*jnp.matmul(v,b)
+    
+    return sw
+
+@partial(jit, static_argnums=(0,))
+def DCond(f1,p):
+    #f1=self.endptChart
+    Jac=jacfwd(f1)(p)
+    return -Jac[0, 1]*Jac[1, 0]+Jac[0, 0]*Jac[1, 1]-Jac[0, 2]*Jac[2, 0]-Jac[1, 2]*Jac[2, 1]+Jac[0, 0]*Jac[2, 2]+Jac[1, 1]*Jac[2, 2] # trace of 2nd exterior power
+    
+    
+def CuspAndDCond(f1,Xa,ds):
+    
+    c = cuspCond(f1,Xa,ds)
+    det2 = DCond(f1,Xa[:3])
+    
+    return jnp.block([c,det2])

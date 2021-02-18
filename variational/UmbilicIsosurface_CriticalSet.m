@@ -22,12 +22,14 @@ zlabel('x_2')
 
 a = zeros(1,3); % Save how much figure is rotated (rad)
 
-
+%% Cusp line
+load('./Data/CuspLine_Umbilics.mat','cuspsP')
+as = axis;
+lP = plot3(cuspsP(:,1),cuspsP(:,2),cuspsP(:,3),'-');
+lP.LineWidth=5;
+lP.Color=[0.9290    0.6940    0.1250];
+axis(as);
 
 %% Set title
 title('Hyperbolic Umbilic Critical Set')
 
-%%
-% fig.Renderer='Painter';
-% orient landscape
-% print(fig,'preimage.pdf','-dpdf','-fillpage')
