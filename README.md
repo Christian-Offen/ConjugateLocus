@@ -12,4 +12,5 @@ Run *./variational/UmbilicIsosurface_ComputeData.ipynb* and then *./variational/
 
 All plots and figures are written to the folder *./variational/Plots.* Computed data is written to *./variational/Data*.
 
+## Alternative methods
 For experiments with a non-variational method, use the corresponding scripts in subfolders of *./RK/* rather than *./variational/*
