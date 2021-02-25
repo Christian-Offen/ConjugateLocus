@@ -1,5 +1,6 @@
 # ConjugateLocus
 
+This GitHub Repository provides source code used fo numerical experiments in relation to the author's participation at the **7th IFAC Workshop on Lagrangian and Hamiltonian Methods for Nonlinear Control 2021** (<https://lhmnlc21.org/>)
 
 ## Computation of cusps and hyperbolic umbilics
 Run *./variational/Locus3D_Cusps.ipynb* to compute the two closed lines of cusps in the bifurcation diagram as well as the location of the four umbilic singularities.
