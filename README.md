@@ -2,10 +2,10 @@
 
 This is accompanying source code for the publication
 
-  Bifurcation preserving discretisations of optimal control problems
-  Christian Offen, Sina Ober-Blöbaum
-  IFAC-PapersOnLine, Volume 54, Issue 19, 2021, Pages 334-339
-  DOI 10.1016/j.ifacol.2021.11.099
+    Bifurcation preserving discretisations of optimal control problems
+    Christian Offen, Sina Ober-Blöbaum
+    IFAC-PapersOnLine, Volume 54, Issue 19, 2021, Pages 334-339
+    DOI 10.1016/j.ifacol.2021.11.099
 
 <a href="https://arxiv.org/abs/2107.13853">ArXiv</a>, <a href="https://arxiv.org/abs/2107.13853">https://arxiv.org/a/offen_c_1.html</a>, <a href="https://doi.org/10.1016/j.ifacol.2021.11.099">DOI</a>
 
